@@ -1,0 +1,16 @@
+name: notify-n8n
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call n8n webhook
+        run: |
+          curl -X POST "https://automato.app.n8n.cloud/webhook/fc896fbb-4a70-48d2-a416-564a3eeeae91" \
+          -H "Content-Type: application/json" \
+          -d '{"event":"pages_updated","repo":"'"${GITHUB_REPOSITORY}"'","sha":"'"${GITHUB_SHA}"'"}'
